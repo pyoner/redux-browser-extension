@@ -11,12 +11,12 @@ function initPortHandlers(store, port) {
     function messageHandler(message) {
         switch (message.type) {
             case 'dispatch':
-                store.dispatch(message.action)
+                store.dispatch(message.payload)
                 break;
         }
     }
 
-    function diconnectHandler() {
+    function disconnectHandler() {
         if (unsubscribe) {
             unsubscribe();
         }
