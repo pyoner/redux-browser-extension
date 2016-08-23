@@ -2,8 +2,11 @@ var path = require('path');
 var gulp = require('gulp');
 var rollup = require('rollup-stream');
 var source = require('vinyl-source-stream');
+var streamify = require('gulp-streamify');
 var gulpSequence = require('gulp-sequence');
 var del = require('del');
+var gulpif = require('gulp-if');
+var uglify = require('gulp-uglify');
 var config = require('./config');
 
 
@@ -16,6 +19,7 @@ function rollit(src, dest) {
     var filename = path.basename(src);
     return rollup(opts)
         .pipe(source(filename))
+        .pipe(gulpif(process.env.NODE_ENV == 'production', streamify(uglify())))
         .pipe(gulp.dest(dest));
 }
 
