@@ -35,7 +35,7 @@ export default function connectToStore(callback) {
             subscribers.push(handler);
             return function () {
                 let i = subscribers.indexOf(handler);
-                delete subscribers[i];
+                subscribers.splice(i, 1);
             }
         },
     }
