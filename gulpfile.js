@@ -19,14 +19,19 @@ function rollit(src, dest) {
         .pipe(gulp.dest(dest));
 }
 
-gulp.task('clean', function(){
+gulp.task('clean', function() {
     return del(BUILD_DIR);
 });
 
-gulp.task('copy-assets', function(){
-    gulp.src('./assets/**')
-    .pipe(gulp.dest(BUILD_ASSETS_DIR))
+gulp.task('copy-assets', function() {
+    return gulp.src('./assets/**')
+        .pipe(gulp.dest(BUILD_ASSETS_DIR))
 });
+
+gulp.task('copy-manifest', function() {
+    return gulp.src('manifest.json')
+        .pipe(gulp.dest(BUILD_DIR));
+})
 
 gulp.task('rollup', function() {
     var entries = [
@@ -44,4 +49,4 @@ gulp.task('rollup', function() {
     return Promise.all(promises);
 });
 
-gulp.task('build', gulpSequence('clean', ['copy-assets', 'rollup']));
+gulp.task('build', gulpSequence('clean', ['copy-manifest', 'copy-assets', 'rollup']));
