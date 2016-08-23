@@ -19,7 +19,7 @@ function rollit(src, dest) {
     var filename = path.basename(src);
     return rollup(opts)
         .pipe(source(filename))
-        .pipe(gulpif(process.env.NODE_ENV == 'production', streamify(uglify())))
+        .pipe(gulpif(process.env.NODE_ENV === 'production', streamify(uglify())))
         .pipe(gulp.dest(dest));
 }
 

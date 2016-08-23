@@ -3,6 +3,7 @@ var commonjs = require('rollup-plugin-commonjs');
 var nodeResolve = require('rollup-plugin-node-resolve');
 var builtins = require('rollup-plugin-node-builtins');
 var globals = require('rollup-plugin-node-globals');
+var replace = require('rollup-plugin-replace');
 
 var config = {
     //entry: 'src/index.js',
@@ -24,6 +25,7 @@ var config = {
             sourceMap: false, // Default: true
         }),
         globals(),
+        replace({'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)})
     ]
 };
 
