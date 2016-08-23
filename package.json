@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c config.js -i src/background.js -o build/background.js && rollup -c config.js -i src/content.js -o build/content.js && cp manifest.json build/manifest.json"
+    "build": "gulp build"
   },
   "keywords": [
     "redux",
@@ -21,11 +21,14 @@
   },
   "devDependencies": {
     "buble": "^0.13.1",
+    "gulp": "^3.9.1",
     "rollup": "^0.34.10",
     "rollup-plugin-buble": "^0.13.0",
     "rollup-plugin-commonjs": "^3.3.1",
     "rollup-plugin-node-builtins": "^1.0.7",
     "rollup-plugin-node-globals": "^1.0.6",
-    "rollup-plugin-node-resolve": "^2.0.0"
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-stream": "^1.11.0",
+    "vinyl-source-stream": "^1.1.0"
   }
 }

@@ -1,10 +1,10 @@
-import buble from 'rollup-plugin-buble';
-import commonjs from 'rollup-plugin-commonjs';
-import nodeResolve from 'rollup-plugin-node-resolve';
-import builtins from 'rollup-plugin-node-builtins';
-import globals from 'rollup-plugin-node-globals';
+var buble = require('rollup-plugin-buble');
+var commonjs = require('rollup-plugin-commonjs');
+var nodeResolve = require('rollup-plugin-node-resolve');
+var builtins = require('rollup-plugin-node-builtins');
+var globals = require('rollup-plugin-node-globals');
 
-export default {
+var config = {
     //entry: 'src/index.js',
     //dest: 'dist/bundle.js',
     format: 'iife',
@@ -26,3 +26,5 @@ export default {
         globals(),
     ]
 };
+
+module.exports = config;
