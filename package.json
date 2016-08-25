@@ -17,8 +17,7 @@
   "author": "Jungle",
   "license": "MIT",
   "dependencies": {
-    "redux": "^3.5.2",
-    "redux-actions": "^0.11.0"
+    "redux": "^3.5.2"
   },
   "devDependencies": {
     "buble": "^0.13.1",
