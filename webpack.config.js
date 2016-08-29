@@ -1,4 +1,5 @@
 var path = require('path');
+var RemoveWebpackPlugin = require('remove-webpack-plugin');
 
 var config = {
     entry: {
@@ -23,7 +24,10 @@ var config = {
                 ]
             }
         }]
-    }
+    },
+    plugins: [
+        new RemoveWebpackPlugin(['./build'])
+    ]
 }
 
 module.exports = config;

@@ -31,6 +31,7 @@
     "gulp-sequence": "^0.4.5",
     "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^2.0.0",
+    "remove-webpack-plugin": "^1.1.1",
     "rollup": "^0.34.10",
     "rollup-plugin-buble": "^0.13.0",
     "rollup-plugin-commonjs": "^3.3.1",
