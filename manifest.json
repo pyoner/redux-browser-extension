@@ -1,16 +1,22 @@
 {
-    "name": "Ping and Pong",
-    "description": "Example ping & pong",
-    "manifest_version": 2,
-    "version": "0.1.0",
-    "background": {
-        "persistent": false,
-        "scripts": ["src/background.js"]
-    },
-    "content_scripts": [
-        {
-            "matches": ["https://github.com/*"],
-            "js": ["src/content.js"]
-        }
+  "name": "Ping and Pong",
+  "description": "Example ping & pong",
+  "manifest_version": 2,
+  "version": "0.1.1",
+  "background": {
+    "persistent": false,
+    "scripts": [
+      "src/background.js"
     ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/*"
+      ],
+      "js": [
+        "src/content.js"
+      ]
+    }
+  ]
 }

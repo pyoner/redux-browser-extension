@@ -1,6 +1,7 @@
 var path = require('path');
 var RemoveWebpackPlugin = require('remove-webpack-plugin');
 var CopyWepbackPlugin = require('copy-webpack-plugin');
+var Bump = require("bump-webpack-plugin");
 
 
 var BUILD_DIR = path.join(__dirname, './build');
@@ -33,6 +34,7 @@ var config = {
     },
     plugins: [
         new RemoveWebpackPlugin(['./build']),
+        new Bump(['package.json', 'manifest.json']),
         new CopyWepbackPlugin([
             { from: './assets/**', to: BUILD_ASSETS_DIR },
             { from: 'manifest.json', to: BUILD_DIR }
