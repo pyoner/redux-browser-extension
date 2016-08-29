@@ -1,4 +1,5 @@
 var path = require('path');
+var webpack = require('webpack');
 var RemoveWebpackPlugin = require('remove-webpack-plugin');
 var CopyWepbackPlugin = require('copy-webpack-plugin');
 var Bump = require("bump-webpack-plugin");
@@ -40,6 +41,14 @@ var config = {
             { from: 'manifest.json', to: BUILD_DIR }
         ])
     ]
+}
+if (process.env.NODE_ENV == 'production') {
+    config.plugins = config.plugins.concat([
+        new webpack.DefinePlugin({
+            'process.env': { 'NODE_ENV': JSON.stringify('production') }
+        }),
+        new webpack.optimize.UglifyJsPlugin({ compress: { warnings: true } })
+    ])
 }
 
 module.exports = config;
