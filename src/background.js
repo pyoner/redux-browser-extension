@@ -11,17 +11,20 @@ function reducer(state = '', action) {
             return state;
     }
 }
-let store = createStore(reducer);
-initBackground(store);
+let storePromise = new Promise((resolve, reject) => {
+    let store = createStore(reducer);
+    resolve(store);
 
-function ping() {
-    store.dispatch({type: 'ping'});
-}
-store.subscribe(()=>{
-    let state = store.getState();
-    if (state == 'pong'){
-        setTimeout(ping, 1000);
+    function ping() {
+        store.dispatch({ type: 'ping' });
     }
-    console.log(state)
+    store.subscribe(() => {
+        let state = store.getState();
+        if (state == 'pong') {
+            setTimeout(ping, 1000);
+        }
+        console.log(state)
+    })
+    ping()
 })
-ping()
+initBackground(storePromise);
