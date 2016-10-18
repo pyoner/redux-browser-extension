@@ -1,6 +1,7 @@
 export default function connectToStore(callback) {
     let subscribers = [];
-    let port = chrome.runtime.connect();
+    let uid = Math.random().toString().slice(2);
+    let port = chrome.runtime.connect(null, { name: uid });
     port.onMessage.addListener((message) => {
         switch (message.type) {
             case 'init':
@@ -12,7 +13,7 @@ export default function connectToStore(callback) {
                 break;
             case 'state':
                 store.state = message.payload;
-                subscribers.forEach((handler)=>handler());
+                subscribers.forEach((handler) => handler());
                 break;
         }
     });
@@ -33,7 +34,7 @@ export default function connectToStore(callback) {
 
         subscribe(handler) {
             subscribers.push(handler);
-            return function () {
+            return function() {
                 let i = subscribers.indexOf(handler);
                 subscribers.splice(i, 1);
             }

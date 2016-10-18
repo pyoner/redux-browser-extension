@@ -1,4 +1,5 @@
 function initPortHandlers(storePromise, port) {
+    console.log(port);
     storePromise.then((store) => {
         function subscribeHandler() {
             let message = {
