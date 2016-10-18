@@ -2,16 +2,15 @@ function initPortHandlers(storePromise, port) {
     console.log(port);
     storePromise.then((store) => {
         function subscribeHandler() {
-            let message = {
-                type: 'state',
+            port.postMessage({
+                type: 'EXTENSION_REDUX_STATE_CHANGED',
                 payload: store.getState(),
-            }
-            port.postMessage(message);
+            });
         }
 
         function messageHandler(message) {
             switch (message.type) {
-                case 'dispatch':
+                case 'EXTENSION_REDUX_DISPATCH':
                     store.dispatch(message.payload)
                     break;
             }
@@ -21,19 +20,27 @@ function initPortHandlers(storePromise, port) {
             if (unsubscribe) {
                 unsubscribe();
             }
+            store.dispatch({
+                type: 'EXTENSION_PORT_DISCONNECT',
+                payload: port
+            });
         }
 
         port.onMessage.addListener(messageHandler)
         port.onDisconnect.addListener(disconnectHandler)
 
-        let message = {
-            type: 'init',
+        store.dispatch({
+            type: 'EXTENSION_PORT_CONNECT',
+            payload: port
+        });
+
+        port.postMessage({
+            type: 'EXTENSION_PORT_INIT_STORE',
             payload: store.getState(),
             meta: {
                 self: port.sender,
             }
-        }
-        port.postMessage(message);
+        });
 
         let unsubscribe = store.subscribe(subscribeHandler);
     });
