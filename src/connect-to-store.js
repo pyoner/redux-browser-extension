@@ -6,7 +6,7 @@ export default function connectToStore(callback) {
             case 'init':
                 store.state = message.payload;
                 if (callback) {
-                    callback(store);
+                    callback(store, message.meta);
                     callback = null;
                 }
                 break;

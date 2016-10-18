@@ -1,6 +1,6 @@
 {
   "name": "redux-browser-extension",
-  "version": "0.1.6",
+  "version": "0.2.3",
   "description": "Redux Browser Extension",
   "main": "index.js",
   "scripts": {

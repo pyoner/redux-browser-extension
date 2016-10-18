@@ -27,7 +27,10 @@ function initPortHandlers(storePromise, port) {
 
         let message = {
             type: 'init',
-            payload: store.getState()
+            payload: store.getState(),
+            meta: {
+                sender: port.sender,
+            }
         }
         port.postMessage(message);
 
