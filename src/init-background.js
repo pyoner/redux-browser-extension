@@ -10,7 +10,8 @@ function initPortHandlers(storePromise, port) {
         function messageHandler(message) {
             switch (message.type) {
                 case 'MSG_REDUX_DISPATCH':
-                    store.dispatch(message.payload)
+                    //extend an action with extension_meta info
+                    store.dispatch(Object.assign({}, message.payload, { extension_meta: { port } }))
                     break;
             }
         }
