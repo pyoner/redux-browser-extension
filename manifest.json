@@ -2,7 +2,7 @@
   "name": "Ping and Pong",
   "description": "Example ping & pong",
   "manifest_version": 2,
-  "version": "0.2.11",
+  "version": "0.2.15",
   "background": {
     "persistent": false,
     "scripts": [

@@ -1,5 +1,7 @@
+import { createStore, combineReducers } from 'redux';
+
 import initBackground from './init-background';
-import { createStore } from 'redux';
+import { portReducer, tabReducer } from './reducers';
 
 function reducer(state = '', action) {
     switch (action.type) {
@@ -11,8 +13,14 @@ function reducer(state = '', action) {
             return state;
     }
 }
+
+const reducers = combineReducers({
+    app: reducer,
+    ports: portReducer,
+    tabs: tabReducer,
+});
 let storePromise = new Promise((resolve, reject) => {
-    let store = createStore(reducer);
+    let store = createStore(reducers);
     resolve(store);
 
     function ping() {
@@ -20,7 +28,7 @@ let storePromise = new Promise((resolve, reject) => {
     }
     store.subscribe(() => {
         let state = store.getState();
-        if (state == 'pong') {
+        if (state.app == 'pong') {
             setTimeout(ping, 1000);
         }
         console.log(state)
