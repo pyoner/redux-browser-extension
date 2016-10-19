@@ -2,14 +2,14 @@ function initPortHandlers(storePromise, port) {
     storePromise.then((store) => {
         function subscribeHandler() {
             port.postMessage({
-                type: 'EXTENSION_REDUX_STATE_CHANGED',
+                type: 'MSG_REDUX_STATE_CHANGED',
                 payload: store.getState(),
             });
         }
 
         function messageHandler(message) {
             switch (message.type) {
-                case 'EXTENSION_REDUX_DISPATCH':
+                case 'MSG_REDUX_DISPATCH':
                     store.dispatch(message.payload)
                     break;
             }
@@ -34,7 +34,7 @@ function initPortHandlers(storePromise, port) {
         });
 
         port.postMessage({
-            type: 'EXTENSION_PORT_INIT_STORE',
+            type: 'MSG_PORT_INIT_STORE',
             payload: store.getState(),
             meta: {
                 self: port.sender,

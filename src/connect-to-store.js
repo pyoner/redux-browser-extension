@@ -4,14 +4,14 @@ export default function connectToStore(callback) {
     let port = chrome.runtime.connect(null, { name: uid });
     port.onMessage.addListener((message) => {
         switch (message.type) {
-            case 'EXTENSION_PORT_INIT_STORE':
+            case 'MSG_PORT_INIT_STORE':
                 store.state = message.payload;
                 if (callback) {
                     callback(store, message.meta);
                     callback = null;
                 }
                 break;
-            case 'EXTENSION_REDUX_STATE_CHANGED':
+            case 'MSG_REDUX_STATE_CHANGED':
                 store.state = message.payload;
                 subscribers.forEach((handler) => handler());
                 break;
@@ -26,7 +26,7 @@ export default function connectToStore(callback) {
 
         dispatch(action) {
             port.postMessage({
-                type: 'EXTENSION_REDUX_DISPATCH',
+                type: 'MSG_REDUX_DISPATCH',
                 payload: action
             });
         },
