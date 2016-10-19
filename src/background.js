@@ -4,6 +4,7 @@ import initBackground from './init-background';
 import { portReducer, tabReducer } from './reducers';
 
 function reducer(state = '', action) {
+    console.log(action);
     switch (action.type) {
         case 'ping':
             return 'ping';
