@@ -1,21 +1,4 @@
-let ports = [];
-
-function removePort(port) {
-    let i = ports.indexOf(port);
-    if (i !== -1) {
-        ports.splice(i, 1);
-    }
-}
-
-function getPortParents(port) {
-    return ports
-        .filter((p) => p !== port && p.sender.tab.id === port.sender.tab.id)
-        .sort((a, b) => a.sender.frameId - b.sender.frameId)
-}
-
-function copyPort(port){
-    return Object.assign({}, port, {name: port.name});
-}
+import { getPortParents, addPort, removePort, copyPort } from './ports';
 
 function initPortHandlers(storePromise, port) {
     storePromise.then((store) => {
@@ -50,7 +33,7 @@ function initPortHandlers(storePromise, port) {
 
         //on connect and store ready
         let parents = getPortParents(port);
-        ports.push(port);
+        addPort(port);
 
         port.onMessage.addListener(messageHandler)
         port.onDisconnect.addListener(disconnectHandler)
