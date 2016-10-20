@@ -13,6 +13,10 @@ function getPortParents(port) {
         .sort((a, b) => a.sender.frameId - b.sender.frameId)
 }
 
+function copyPort(port){
+    return Object.assign({}, port, {name: port.name});
+}
+
 function initPortHandlers(storePromise, port) {
     storePromise.then((store) => {
         function subscribeHandler() {
@@ -60,8 +64,8 @@ function initPortHandlers(storePromise, port) {
             type: 'MSG_PORT_INIT_STORE',
             payload: store.getState(),
             meta: {
-                port,
-                parents,
+                port: copyPort(port),
+                parents: parents.map(copyPort),
             }
         });
 
