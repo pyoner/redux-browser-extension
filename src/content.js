@@ -1,6 +1,6 @@
 import connectToStore from './connect-to-store';
 
-connectToStore((store, meta) => {
+connectToStore((port, store, meta) => {
     function pong() {
         let state = store.getState();
         if (state.app == 'ping') {

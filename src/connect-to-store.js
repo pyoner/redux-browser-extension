@@ -7,7 +7,7 @@ export default function connectToStore(callback) {
             case 'MSG_PORT_INIT_STORE':
                 store.state = message.payload;
                 if (callback) {
-                    callback(store, message.meta);
+                    callback(port, store, message.meta);
                     callback = null;
                 }
                 break;
