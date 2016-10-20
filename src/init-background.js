@@ -1,3 +1,18 @@
+let ports = [];
+
+function removePort(port) {
+    let i = ports.indexOf(port);
+    if (i !== -1) {
+        ports.splice(i, 1);
+    }
+}
+
+function getPortParents(port) {
+    return ports
+        .filter((p) => p !== port && p.sender.tab.id === port.sender.tab.id)
+        .sort((a, b) => a.sender.frameId - b.sender.frameId)
+}
+
 function initPortHandlers(storePromise, port) {
     storePromise.then((store) => {
         function subscribeHandler() {
@@ -10,8 +25,10 @@ function initPortHandlers(storePromise, port) {
         function messageHandler(message) {
             switch (message.type) {
                 case 'MSG_REDUX_DISPATCH':
-                    //extend an action with extension_meta info
-                    store.dispatch(Object.assign({}, message.payload, { extension_meta: { port } }))
+                    //extend meta info
+                    let meta = { meta: { port } }
+                    let action = Object.assign({}, meta, message.payload);
+                    store.dispatch(action);
                     break;
             }
         }
@@ -24,7 +41,12 @@ function initPortHandlers(storePromise, port) {
                 type: 'EXTENSION_PORT_DISCONNECT',
                 payload: port
             });
+
         }
+
+        //on connect and store ready
+        let parents = getPortParents(port);
+        ports.push(port);
 
         port.onMessage.addListener(messageHandler)
         port.onDisconnect.addListener(disconnectHandler)
@@ -38,7 +60,8 @@ function initPortHandlers(storePromise, port) {
             type: 'MSG_PORT_INIT_STORE',
             payload: store.getState(),
             meta: {
-                self: port.sender,
+                port,
+                parents,
             }
         });
 
