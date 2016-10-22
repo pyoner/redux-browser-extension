@@ -21,6 +21,7 @@ function initPortHandlers(storePromise, port) {
         }
 
         function disconnectHandler() {
+            removePort(port);
             if (unsubscribe) {
                 unsubscribe();
             }
@@ -28,7 +29,6 @@ function initPortHandlers(storePromise, port) {
                 type: 'EXTENSION_PORT_DISCONNECT',
                 payload: port
             });
-
         }
 
         //on connect and store ready
