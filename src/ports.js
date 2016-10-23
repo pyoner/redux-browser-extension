@@ -13,7 +13,7 @@ export function removePort(port) {
 
 export function getPortParents(port) {
     return ports
-        .filter((p) => p !== port && p.sender.tab.id === port.sender.tab.id)
+        .filter((p) => p !== port && p.sender.tab.id === port.sender.tab.id && p.sender.frameId > port.sender.frameId)
         .sort((a, b) => a.sender.frameId - b.sender.frameId)
 }
 
