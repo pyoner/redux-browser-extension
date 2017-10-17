@@ -13,8 +13,8 @@ function initPortHandlers(storePromise, port) {
             switch (message.type) {
                 case 'MSG_REDUX_DISPATCH':
                     //extend meta info
-                    let meta = { meta: { port } }
-                    let action = Object.assign({}, meta, message.payload);
+                    let meta = { meta: Object.assign({}, { port }, message.payload.meta) }
+                    let action = Object.assign({}, message.payload, meta);
                     store.dispatch(action);
                     break;
             }
