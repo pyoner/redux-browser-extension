@@ -17,7 +17,8 @@
   "author": "Jungle",
   "license": "MIT",
   "dependencies": {
-    "redux": "^3.5.2"
+    "redux": "^3.5.2",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.14.0",
